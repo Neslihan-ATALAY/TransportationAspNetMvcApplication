@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TransportationDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="TransportationDatabaseModelStoreContainer">
+          <EntitySet Name="ADDRESS" EntityType="TransportationDatabaseModel.Store.ADDRESS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="APPLICATION" EntityType="TransportationDatabaseModel.Store.APPLICATION" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="APPLICATION_VEHICLE" EntityType="TransportationDatabaseModel.Store.APPLICATION_VEHICLE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CITY" EntityType="TransportationDatabaseModel.Store.CITY" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="COMMENT" EntityType="TransportationDatabaseModel.Store.COMMENT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="COMPANY" EntityType="TransportationDatabaseModel.Store.COMPANY" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DISTRICT" EntityType="TransportationDatabaseModel.Store.DISTRICT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EMPLOYEE" EntityType="TransportationDatabaseModel.Store.EMPLOYEE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EMPLOYEETYPE" EntityType="TransportationDatabaseModel.Store.EMPLOYEETYPE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TRANSPORTTYPE" EntityType="TransportationDatabaseModel.Store.TRANSPORTTYPE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="USER" EntityType="TransportationDatabaseModel.Store.USER" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VEHICLE" EntityType="TransportationDatabaseModel.Store.VEHICLE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VEHICLE_EMPLOYEE" EntityType="TransportationDatabaseModel.Store.VEHICLE_EMPLOYEE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VEHICLETYPE" EntityType="TransportationDatabaseModel.Store.VEHICLETYPE" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ADDRESS_CITY" Association="TransportationDatabaseModel.Store.FK_ADDRESS_CITY">
+            <End Role="CITY" EntitySet="CITY" />
+            <End Role="ADDRESS" EntitySet="ADDRESS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ADDRESS_DISTRICT" Association="TransportationDatabaseModel.Store.FK_ADDRESS_DISTRICT">
+            <End Role="DISTRICT" EntitySet="DISTRICT" />
+            <End Role="ADDRESS" EntitySet="ADDRESS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APPLICATION_TRANSPORTTYPE" Association="TransportationDatabaseModel.Store.FK_APPLICATION_TRANSPORTTYPE">
+            <End Role="TRANSPORTTYPE" EntitySet="TRANSPORTTYPE" />
+            <End Role="APPLICATION" EntitySet="APPLICATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APPLICATION_USER" Association="TransportationDatabaseModel.Store.FK_APPLICATION_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="APPLICATION" EntitySet="APPLICATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APPLICATION_VEHICLE_APPLICATION" Association="TransportationDatabaseModel.Store.FK_APPLICATION_VEHICLE_APPLICATION">
+            <End Role="APPLICATION" EntitySet="APPLICATION" />
+            <End Role="APPLICATION_VEHICLE" EntitySet="APPLICATION_VEHICLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMENT_APPLICATION" Association="TransportationDatabaseModel.Store.FK_COMMENT_APPLICATION">
+            <End Role="APPLICATION" EntitySet="APPLICATION" />
+            <End Role="COMMENT" EntitySet="COMMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMPLOYEE_COMPANY" Association="TransportationDatabaseModel.Store.FK_EMPLOYEE_COMPANY">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMPLOYEE_EMPLOYEETYPE" Association="TransportationDatabaseModel.Store.FK_EMPLOYEE_EMPLOYEETYPE">
+            <End Role="EMPLOYEETYPE" EntitySet="EMPLOYEETYPE" />
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICLE_COMPANY" Association="TransportationDatabaseModel.Store.FK_VEHICLE_COMPANY">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="VEHICLE" EntitySet="VEHICLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICLE_EMPLOYEE_EMPLOYEE" Association="TransportationDatabaseModel.Store.FK_VEHICLE_EMPLOYEE_EMPLOYEE">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="VEHICLE_EMPLOYEE" EntitySet="VEHICLE_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICLE_TRANSPORTTYPE" Association="TransportationDatabaseModel.Store.FK_VEHICLE_TRANSPORTTYPE">
+            <End Role="TRANSPORTTYPE" EntitySet="TRANSPORTTYPE" />
+            <End Role="VEHICLE" EntitySet="VEHICLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICLE_VEHICLETYPE" Association="TransportationDatabaseModel.Store.FK_VEHICLE_VEHICLETYPE">
+            <End Role="VEHICLETYPE" EntitySet="VEHICLETYPE" />
+            <End Role="VEHICLE" EntitySet="VEHICLE" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ADDRESS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CITYID" Type="int" />
+          <Property Name="TOWN" Type="nvarchar" MaxLength="100" />
+          <Property Name="DISTRICTID" Type="int" />
+          <Property Name="NEIGHBOURHOOD" Type="nvarchar" MaxLength="100" />
+          <Property Name="STREET" Type="nvarchar" MaxLength="100" />
+          <Property Name="HOMESTREET" Type="nvarchar" MaxLength="100" />
+          <Property Name="BUILDINGNO" Type="int" />
+          <Property Name="INNERDOORNO" Type="int" />
+        </EntityType>
+        <EntityType Name="APPLICATION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="TRANSPORTTYPEID" Type="int" />
+          <Property Name="TRANSPORTDATE" Type="date" />
+          <Property Name="DEPARTUREID" Type="int" />
+          <Property Name="DESTINATIONID" Type="int" />
+          <Property Name="WEIGHT" Type="decimal" />
+          <Property Name="DISTANCE" Type="decimal" />
+          <Property Name="PRICE" Type="decimal" />
+        </EntityType>
+        <EntityType Name="APPLICATION_VEHICLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="APPLICATIONID" Type="int" />
+          <Property Name="VEHICLEID" Type="int" />
+          <Property Name="DRIVERID" Type="int" />
+        </EntityType>
+        <EntityType Name="CITY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="COMMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="APPLICATIONID" Type="int" />
+          <Property Name="USERCOMMENT" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="COMPANY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="300" />
+          <Property Name="OWNER" Type="nvarchar" MaxLength="200" />
+          <Property Name="TELEPHONE" Type="nvarchar" MaxLength="100" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="100" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="100" />
+          <Property Name="ADDRESSID" Type="int" />
+          <Property Name="ESTABLISHMENTDATE" Type="date" />
+        </EntityType>
+        <EntityType Name="DISTRICT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="CITYID" Type="int" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="SURNAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="IDENTITYNUMBER" Type="nchar" MaxLength="11" />
+          <Property Name="TELEPHONE" Type="nvarchar" MaxLength="100" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="100" />
+          <Property Name="GENDER" Type="char" MaxLength="1" />
+          <Property Name="BIRTHDATE" Type="date" />
+          <Property Name="ADDRESSID" Type="int" />
+          <Property Name="COMPANYID" Type="int" />
+          <Property Name="EMPLOYEETYPEID" Type="int" />
+          <Property Name="DRIVERLICENSEGROUP" Type="nvarchar" MaxLength="50" />
+          <Property Name="DRIVERLICENSENUMBER" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="EMPLOYEETYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TYPE" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TRANSPORTTYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TYPE" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="SURNAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="IDENTITYNUMBER" Type="nchar" MaxLength="11" />
+          <Property Name="USERNAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="100" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="100" />
+          <Property Name="TELEPHONE" Type="nvarchar" MaxLength="100" />
+          <Property Name="GENDER" Type="char" MaxLength="1" />
+          <Property Name="BIRTHDATE" Type="date" />
+          <Property Name="ADDRESSID" Type="int" />
+        </EntityType>
+        <EntityType Name="VEHICLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PLATENUMBER" Type="nvarchar" MaxLength="100" />
+          <Property Name="TRANSPORTTYPEID" Type="int" />
+          <Property Name="VEHICLETYPEID" Type="int" />
+          <Property Name="COMPANYID" Type="int" />
+          <Property Name="WEIGHTCAPACITY" Type="decimal" />
+          <Property Name="UNITPRICE" Type="decimal" />
+        </EntityType>
+        <EntityType Name="VEHICLE_EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="VEHICLEID" Type="int" />
+          <Property Name="EMPLOYEEID" Type="int" />
+        </EntityType>
+        <EntityType Name="VEHICLETYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TYPE" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_ADDRESS_CITY">
+          <End Role="CITY" Type="TransportationDatabaseModel.Store.CITY" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ADDRESS" Type="TransportationDatabaseModel.Store.ADDRESS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CITY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ADDRESS">
+              <PropertyRef Name="CITYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ADDRESS_DISTRICT">
+          <End Role="DISTRICT" Type="TransportationDatabaseModel.Store.DISTRICT" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ADDRESS" Type="TransportationDatabaseModel.Store.ADDRESS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISTRICT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ADDRESS">
+              <PropertyRef Name="DISTRICTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_APPLICATION_TRANSPORTTYPE">
+          <End Role="TRANSPORTTYPE" Type="TransportationDatabaseModel.Store.TRANSPORTTYPE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="APPLICATION" Type="TransportationDatabaseModel.Store.APPLICATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSPORTTYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="APPLICATION">
+              <PropertyRef Name="TRANSPORTTYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_APPLICATION_USER">
+          <End Role="USER" Type="TransportationDatabaseModel.Store.USER" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="APPLICATION" Type="TransportationDatabaseModel.Store.APPLICATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="APPLICATION">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_APPLICATION_VEHICLE_APPLICATION">
+          <End Role="APPLICATION" Type="TransportationDatabaseModel.Store.APPLICATION" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="APPLICATION_VEHICLE" Type="TransportationDatabaseModel.Store.APPLICATION_VEHICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APPLICATION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="APPLICATION_VEHICLE">
+              <PropertyRef Name="APPLICATIONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMENT_APPLICATION">
+          <End Role="APPLICATION" Type="TransportationDatabaseModel.Store.APPLICATION" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="COMMENT" Type="TransportationDatabaseModel.Store.COMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APPLICATION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMMENT">
+              <PropertyRef Name="APPLICATIONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMPLOYEE_COMPANY">
+          <End Role="COMPANY" Type="TransportationDatabaseModel.Store.COMPANY" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EMPLOYEE" Type="TransportationDatabaseModel.Store.EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EMPLOYEE">
+              <PropertyRef Name="COMPANYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMPLOYEE_EMPLOYEETYPE">
+          <End Role="EMPLOYEETYPE" Type="TransportationDatabaseModel.Store.EMPLOYEETYPE" Multiplicity="0..1" />
+          <End Role="EMPLOYEE" Type="TransportationDatabaseModel.Store.EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEETYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EMPLOYEE">
+              <PropertyRef Name="EMPLOYEETYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICLE_COMPANY">
+          <End Role="COMPANY" Type="TransportationDatabaseModel.Store.COMPANY" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VEHICLE" Type="TransportationDatabaseModel.Store.VEHICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VEHICLE">
+              <PropertyRef Name="COMPANYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICLE_EMPLOYEE_EMPLOYEE">
+          <End Role="EMPLOYEE" Type="TransportationDatabaseModel.Store.EMPLOYEE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VEHICLE_EMPLOYEE" Type="TransportationDatabaseModel.Store.VEHICLE_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VEHICLE_EMPLOYEE">
+              <PropertyRef Name="EMPLOYEEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICLE_TRANSPORTTYPE">
+          <End Role="TRANSPORTTYPE" Type="TransportationDatabaseModel.Store.TRANSPORTTYPE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VEHICLE" Type="TransportationDatabaseModel.Store.VEHICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSPORTTYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VEHICLE">
+              <PropertyRef Name="TRANSPORTTYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICLE_VEHICLETYPE">
+          <End Role="VEHICLETYPE" Type="TransportationDatabaseModel.Store.VEHICLETYPE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VEHICLE" Type="TransportationDatabaseModel.Store.VEHICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEHICLETYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VEHICLE">
+              <PropertyRef Name="VEHICLETYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TransportationDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="TransportationDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADDRESSes" EntityType="TransportationDatabaseModel.ADDRESS" />
+          <EntitySet Name="APPLICATIONs" EntityType="TransportationDatabaseModel.APPLICATION" />
+          <EntitySet Name="APPLICATION_VEHICLE" EntityType="TransportationDatabaseModel.APPLICATION_VEHICLE" />
+          <EntitySet Name="CITies" EntityType="TransportationDatabaseModel.CITY" />
+          <EntitySet Name="COMMENTs" EntityType="TransportationDatabaseModel.COMMENT" />
+          <EntitySet Name="COMPANies" EntityType="TransportationDatabaseModel.COMPANY" />
+          <EntitySet Name="DISTRICTs" EntityType="TransportationDatabaseModel.DISTRICT" />
+          <EntitySet Name="EMPLOYEEs" EntityType="TransportationDatabaseModel.EMPLOYEE" />
+          <EntitySet Name="TRANSPORTTYPEs" EntityType="TransportationDatabaseModel.TRANSPORTTYPE" />
+          <EntitySet Name="USERs" EntityType="TransportationDatabaseModel.USER" />
+          <EntitySet Name="VEHICLEs" EntityType="TransportationDatabaseModel.VEHICLE" />
+          <EntitySet Name="VEHICLE_EMPLOYEE" EntityType="TransportationDatabaseModel.VEHICLE_EMPLOYEE" />
+          <EntitySet Name="VEHICLETYPEs" EntityType="TransportationDatabaseModel.VEHICLETYPE" />
+          <AssociationSet Name="FK_ADDRESS_CITY" Association="TransportationDatabaseModel.FK_ADDRESS_CITY">
+            <End Role="CITY" EntitySet="CITies" />
+            <End Role="ADDRESS" EntitySet="ADDRESSes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ADDRESS_DISTRICT" Association="TransportationDatabaseModel.FK_ADDRESS_DISTRICT">
+            <End Role="DISTRICT" EntitySet="DISTRICTs" />
+            <End Role="ADDRESS" EntitySet="ADDRESSes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APPLICATION_TRANSPORTTYPE" Association="TransportationDatabaseModel.FK_APPLICATION_TRANSPORTTYPE">
+            <End Role="TRANSPORTTYPE" EntitySet="TRANSPORTTYPEs" />
+            <End Role="APPLICATION" EntitySet="APPLICATIONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APPLICATION_USER" Association="TransportationDatabaseModel.FK_APPLICATION_USER">
+            <End Role="USER" EntitySet="USERs" />
+            <End Role="APPLICATION" EntitySet="APPLICATIONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APPLICATION_VEHICLE_APPLICATION" Association="TransportationDatabaseModel.FK_APPLICATION_VEHICLE_APPLICATION">
+            <End Role="APPLICATION" EntitySet="APPLICATIONs" />
+            <End Role="APPLICATION_VEHICLE" EntitySet="APPLICATION_VEHICLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMENT_APPLICATION" Association="TransportationDatabaseModel.FK_COMMENT_APPLICATION">
+            <End Role="APPLICATION" EntitySet="APPLICATIONs" />
+            <End Role="COMMENT" EntitySet="COMMENTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APPLICATION_VEHICLE_VEHICLE" Association="TransportationDatabaseModel.FK_APPLICATION_VEHICLE_VEHICLE">
+            <End Role="VEHICLE" EntitySet="VEHICLEs" />
+            <End Role="APPLICATION_VEHICLE" EntitySet="APPLICATION_VEHICLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMPLOYEE_COMPANY" Association="TransportationDatabaseModel.FK_EMPLOYEE_COMPANY">
+            <End Role="COMPANY" EntitySet="COMPANies" />
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICLE_COMPANY" Association="TransportationDatabaseModel.FK_VEHICLE_COMPANY">
+            <End Role="COMPANY" EntitySet="COMPANies" />
+            <End Role="VEHICLE" EntitySet="VEHICLEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICLE_EMPLOYEE_EMPLOYEE" Association="TransportationDatabaseModel.FK_VEHICLE_EMPLOYEE_EMPLOYEE">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
+            <End Role="VEHICLE_EMPLOYEE" EntitySet="VEHICLE_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICLE_EMPLOYEE_VEHICLE" Association="TransportationDatabaseModel.FK_VEHICLE_EMPLOYEE_VEHICLE">
+            <End Role="VEHICLE" EntitySet="VEHICLEs" />
+            <End Role="VEHICLE_EMPLOYEE" EntitySet="VEHICLE_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICLE_VEHICLETYPE" Association="TransportationDatabaseModel.FK_VEHICLE_VEHICLETYPE">
+            <End Role="VEHICLETYPE" EntitySet="VEHICLETYPEs" />
+            <End Role="VEHICLE" EntitySet="VEHICLEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICLE_TRANSPORTTYPE" Association="TransportationDatabaseModel.FK_VEHICLE_TRANSPORTTYPE">
+            <End Role="TRANSPORTTYPE" EntitySet="TRANSPORTTYPEs" />
+            <End Role="VEHICLE" EntitySet="VEHICLEs" />
+          </AssociationSet>
+          <EntitySet Name="EMPLOYEETYPEs" EntityType="TransportationDatabaseModel.EMPLOYEETYPE" />
+          <AssociationSet Name="FK_EMPLOYEE_EMPLOYEETYPE" Association="TransportationDatabaseModel.FK_EMPLOYEE_EMPLOYEETYPE">
+            <End Role="EMPLOYEETYPE" EntitySet="EMPLOYEETYPEs" />
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ADDRESS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CITYID" Type="Int32" />
+          <Property Name="TOWN" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DISTRICTID" Type="Int32" />
+          <Property Name="NEIGHBOURHOOD" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="STREET" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="HOMESTREET" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="BUILDINGNO" Type="Int32" />
+          <Property Name="INNERDOORNO" Type="Int32" />
+          <NavigationProperty Name="CITY" Relationship="TransportationDatabaseModel.FK_ADDRESS_CITY" FromRole="ADDRESS" ToRole="CITY" />
+          <NavigationProperty Name="DISTRICT" Relationship="TransportationDatabaseModel.FK_ADDRESS_DISTRICT" FromRole="ADDRESS" ToRole="DISTRICT" />
+        </EntityType>
+        <EntityType Name="APPLICATION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="TRANSPORTTYPEID" Type="Int32" />
+          <Property Name="TRANSPORTDATE" Type="DateTime" />
+          <Property Name="DEPARTUREID" Type="Int32" />
+          <Property Name="DESTINATIONID" Type="Int32" />
+          <NavigationProperty Name="TRANSPORTTYPE" Relationship="TransportationDatabaseModel.FK_APPLICATION_TRANSPORTTYPE" FromRole="APPLICATION" ToRole="TRANSPORTTYPE" />
+          <NavigationProperty Name="USER" Relationship="TransportationDatabaseModel.FK_APPLICATION_USER" FromRole="APPLICATION" ToRole="USER" />
+          <NavigationProperty Name="APPLICATION_VEHICLE" Relationship="TransportationDatabaseModel.FK_APPLICATION_VEHICLE_APPLICATION" FromRole="APPLICATION" ToRole="APPLICATION_VEHICLE" />
+          <NavigationProperty Name="COMMENTs" Relationship="TransportationDatabaseModel.FK_COMMENT_APPLICATION" FromRole="APPLICATION" ToRole="COMMENT" />
+          <Property Type="Decimal" Name="WEIGHT" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DISTANCE" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="PRICE" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="APPLICATION_VEHICLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="APPLICATIONID" Type="Int32" />
+          <Property Name="VEHICLEID" Type="Int32" />
+          <Property Name="DRIVERID" Type="Int32" />
+          <NavigationProperty Name="APPLICATION" Relationship="TransportationDatabaseModel.FK_APPLICATION_VEHICLE_APPLICATION" FromRole="APPLICATION_VEHICLE" ToRole="APPLICATION" />
+          <NavigationProperty Name="VEHICLE" Relationship="TransportationDatabaseModel.FK_APPLICATION_VEHICLE_VEHICLE" FromRole="APPLICATION_VEHICLE" ToRole="VEHICLE" />
+        </EntityType>
+        <EntityType Name="CITY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="ADDRESSes" Relationship="TransportationDatabaseModel.FK_ADDRESS_CITY" FromRole="CITY" ToRole="ADDRESS" />
+        </EntityType>
+        <EntityType Name="COMMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="APPLICATIONID" Type="Int32" />
+          <Property Name="USERCOMMENT" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="APPLICATION" Relationship="TransportationDatabaseModel.FK_COMMENT_APPLICATION" FromRole="COMMENT" ToRole="APPLICATION" />
+        </EntityType>
+        <EntityType Name="COMPANY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="OWNER" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="TELEPHONE" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="FAX" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ADDRESSID" Type="Int32" />
+          <Property Name="ESTABLISHMENTDATE" Type="DateTime" />
+          <NavigationProperty Name="EMPLOYEEs" Relationship="TransportationDatabaseModel.FK_EMPLOYEE_COMPANY" FromRole="COMPANY" ToRole="EMPLOYEE" />
+          <NavigationProperty Name="VEHICLEs" Relationship="TransportationDatabaseModel.FK_VEHICLE_COMPANY" FromRole="COMPANY" ToRole="VEHICLE" />
+        </EntityType>
+        <EntityType Name="DISTRICT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CITYID" Type="Int32" />
+          <NavigationProperty Name="ADDRESSes" Relationship="TransportationDatabaseModel.FK_ADDRESS_DISTRICT" FromRole="DISTRICT" ToRole="ADDRESS" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="SURNAME" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="IDENTITYNUMBER" Type="String" MaxLength="11" Unicode="true" FixedLength="true" />
+          <Property Name="TELEPHONE" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="GENDER" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="BIRTHDATE" Type="DateTime" />
+          <Property Name="ADDRESSID" Type="Int32" />
+          <Property Name="COMPANYID" Type="Int32" />
+          <Property Name="DRIVERLICENSEGROUP" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="DRIVERLICENSENUMBER" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="COMPANY" Relationship="TransportationDatabaseModel.FK_EMPLOYEE_COMPANY" FromRole="EMPLOYEE" ToRole="COMPANY" />
+          <NavigationProperty Name="VEHICLE_EMPLOYEE" Relationship="TransportationDatabaseModel.FK_VEHICLE_EMPLOYEE_EMPLOYEE" FromRole="EMPLOYEE" ToRole="VEHICLE_EMPLOYEE" />
+          <Property Type="Int32" Name="EMPLOYEETYPEID" />
+          <NavigationProperty Name="EMPLOYEETYPE" Relationship="TransportationDatabaseModel.FK_EMPLOYEE_EMPLOYEETYPE" FromRole="EMPLOYEE" ToRole="EMPLOYEETYPE" />
+        </EntityType>
+        <EntityType Name="TRANSPORTTYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TYPE" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="APPLICATIONs" Relationship="TransportationDatabaseModel.FK_APPLICATION_TRANSPORTTYPE" FromRole="TRANSPORTTYPE" ToRole="APPLICATION" />
+          <NavigationProperty Name="VEHICLEs" Relationship="TransportationDatabaseModel.FK_VEHICLE_TRANSPORTTYPE" FromRole="TRANSPORTTYPE" ToRole="VEHICLE" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="SURNAME" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="TELEPHONE" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="GENDER" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="BIRTHDATE" Type="DateTime" />
+          <Property Name="ADDRESSID" Type="Int32" />
+          <NavigationProperty Name="APPLICATIONs" Relationship="TransportationDatabaseModel.FK_APPLICATION_USER" FromRole="USER" ToRole="APPLICATION" />
+          <Property Type="String" Name="IDENTITYNUMBER" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="PASSWORD" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VEHICLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PLATENUMBER" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="VEHICLETYPEID" Type="Int32" />
+          <Property Name="COMPANYID" Type="Int32" />
+          <Property Name="WEIGHTCAPACITY" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="UNITPRICE" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="APPLICATION_VEHICLE" Relationship="TransportationDatabaseModel.FK_APPLICATION_VEHICLE_VEHICLE" FromRole="VEHICLE" ToRole="APPLICATION_VEHICLE" />
+          <NavigationProperty Name="COMPANY" Relationship="TransportationDatabaseModel.FK_VEHICLE_COMPANY" FromRole="VEHICLE" ToRole="COMPANY" />
+          <NavigationProperty Name="VEHICLE_EMPLOYEE" Relationship="TransportationDatabaseModel.FK_VEHICLE_EMPLOYEE_VEHICLE" FromRole="VEHICLE" ToRole="VEHICLE_EMPLOYEE" />
+          <NavigationProperty Name="VEHICLETYPE" Relationship="TransportationDatabaseModel.FK_VEHICLE_VEHICLETYPE" FromRole="VEHICLE" ToRole="VEHICLETYPE" />
+          <Property Type="Int32" Name="TRANSPORTTYPEID" />
+          <NavigationProperty Name="TRANSPORTTYPE" Relationship="TransportationDatabaseModel.FK_VEHICLE_TRANSPORTTYPE" FromRole="VEHICLE" ToRole="TRANSPORTTYPE" />
+        </EntityType>
+        <EntityType Name="VEHICLE_EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VEHICLEID" Type="Int32" />
+          <Property Name="EMPLOYEEID" Type="Int32" />
+          <NavigationProperty Name="EMPLOYEE" Relationship="TransportationDatabaseModel.FK_VEHICLE_EMPLOYEE_EMPLOYEE" FromRole="VEHICLE_EMPLOYEE" ToRole="EMPLOYEE" />
+          <NavigationProperty Name="VEHICLE" Relationship="TransportationDatabaseModel.FK_VEHICLE_EMPLOYEE_VEHICLE" FromRole="VEHICLE_EMPLOYEE" ToRole="VEHICLE" />
+        </EntityType>
+        <EntityType Name="VEHICLETYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TYPE" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="VEHICLEs" Relationship="TransportationDatabaseModel.FK_VEHICLE_VEHICLETYPE" FromRole="VEHICLETYPE" ToRole="VEHICLE" />
+        </EntityType>
+        <Association Name="FK_ADDRESS_CITY">
+          <End Role="CITY" Type="TransportationDatabaseModel.CITY" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ADDRESS" Type="TransportationDatabaseModel.ADDRESS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CITY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ADDRESS">
+              <PropertyRef Name="CITYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ADDRESS_DISTRICT">
+          <End Role="DISTRICT" Type="TransportationDatabaseModel.DISTRICT" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ADDRESS" Type="TransportationDatabaseModel.ADDRESS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISTRICT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ADDRESS">
+              <PropertyRef Name="DISTRICTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_APPLICATION_TRANSPORTTYPE">
+          <End Role="TRANSPORTTYPE" Type="TransportationDatabaseModel.TRANSPORTTYPE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="APPLICATION" Type="TransportationDatabaseModel.APPLICATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSPORTTYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="APPLICATION">
+              <PropertyRef Name="TRANSPORTTYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_APPLICATION_USER">
+          <End Role="USER" Type="TransportationDatabaseModel.USER" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="APPLICATION" Type="TransportationDatabaseModel.APPLICATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="APPLICATION">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_APPLICATION_VEHICLE_APPLICATION">
+          <End Role="APPLICATION" Type="TransportationDatabaseModel.APPLICATION" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="APPLICATION_VEHICLE" Type="TransportationDatabaseModel.APPLICATION_VEHICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APPLICATION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="APPLICATION_VEHICLE">
+              <PropertyRef Name="APPLICATIONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMENT_APPLICATION">
+          <End Role="APPLICATION" Type="TransportationDatabaseModel.APPLICATION" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="COMMENT" Type="TransportationDatabaseModel.COMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APPLICATION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMMENT">
+              <PropertyRef Name="APPLICATIONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_APPLICATION_VEHICLE_VEHICLE">
+          <End Role="VEHICLE" Type="TransportationDatabaseModel.VEHICLE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="APPLICATION_VEHICLE" Type="TransportationDatabaseModel.APPLICATION_VEHICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEHICLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="APPLICATION_VEHICLE">
+              <PropertyRef Name="VEHICLEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMPLOYEE_COMPANY">
+          <End Role="COMPANY" Type="TransportationDatabaseModel.COMPANY" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EMPLOYEE" Type="TransportationDatabaseModel.EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EMPLOYEE">
+              <PropertyRef Name="COMPANYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICLE_COMPANY">
+          <End Role="COMPANY" Type="TransportationDatabaseModel.COMPANY" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VEHICLE" Type="TransportationDatabaseModel.VEHICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VEHICLE">
+              <PropertyRef Name="COMPANYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICLE_EMPLOYEE_EMPLOYEE">
+          <End Role="EMPLOYEE" Type="TransportationDatabaseModel.EMPLOYEE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VEHICLE_EMPLOYEE" Type="TransportationDatabaseModel.VEHICLE_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VEHICLE_EMPLOYEE">
+              <PropertyRef Name="EMPLOYEEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICLE_EMPLOYEE_VEHICLE">
+          <End Role="VEHICLE" Type="TransportationDatabaseModel.VEHICLE" Multiplicity="0..1" />
+          <End Role="VEHICLE_EMPLOYEE" Type="TransportationDatabaseModel.VEHICLE_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEHICLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VEHICLE_EMPLOYEE">
+              <PropertyRef Name="VEHICLEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICLE_VEHICLETYPE">
+          <End Role="VEHICLETYPE" Type="TransportationDatabaseModel.VEHICLETYPE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VEHICLE" Type="TransportationDatabaseModel.VEHICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEHICLETYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VEHICLE">
+              <PropertyRef Name="VEHICLETYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICLE_TRANSPORTTYPE">
+          <End Type="TransportationDatabaseModel.TRANSPORTTYPE" Role="TRANSPORTTYPE" Multiplicity="0..1" />
+          <End Type="TransportationDatabaseModel.VEHICLE" Role="VEHICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSPORTTYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VEHICLE">
+              <PropertyRef Name="TRANSPORTTYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EMPLOYEETYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="TYPE" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EMPLOYEEs" Relationship="TransportationDatabaseModel.FK_EMPLOYEE_EMPLOYEETYPE" FromRole="EMPLOYEETYPE" ToRole="EMPLOYEE" />
+        </EntityType>
+        <Association Name="FK_EMPLOYEE_EMPLOYEETYPE">
+          <End Type="TransportationDatabaseModel.EMPLOYEETYPE" Role="EMPLOYEETYPE" Multiplicity="0..1" />
+          <End Type="TransportationDatabaseModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEETYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EMPLOYEE">
+              <PropertyRef Name="EMPLOYEETYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TransportationDatabaseModelStoreContainer" CdmEntityContainer="TransportationDatabaseEntities">
+          <EntitySetMapping Name="ADDRESSes">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.ADDRESS">
+              <MappingFragment StoreEntitySet="ADDRESS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CITYID" ColumnName="CITYID" />
+                <ScalarProperty Name="TOWN" ColumnName="TOWN" />
+                <ScalarProperty Name="DISTRICTID" ColumnName="DISTRICTID" />
+                <ScalarProperty Name="NEIGHBOURHOOD" ColumnName="NEIGHBOURHOOD" />
+                <ScalarProperty Name="STREET" ColumnName="STREET" />
+                <ScalarProperty Name="HOMESTREET" ColumnName="HOMESTREET" />
+                <ScalarProperty Name="BUILDINGNO" ColumnName="BUILDINGNO" />
+                <ScalarProperty Name="INNERDOORNO" ColumnName="INNERDOORNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APPLICATIONs">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.APPLICATION">
+              <MappingFragment StoreEntitySet="APPLICATION">
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="DISTANCE" ColumnName="DISTANCE" />
+                <ScalarProperty Name="WEIGHT" ColumnName="WEIGHT" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="TRANSPORTTYPEID" ColumnName="TRANSPORTTYPEID" />
+                <ScalarProperty Name="TRANSPORTDATE" ColumnName="TRANSPORTDATE" />
+                <ScalarProperty Name="DEPARTUREID" ColumnName="DEPARTUREID" />
+                <ScalarProperty Name="DESTINATIONID" ColumnName="DESTINATIONID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APPLICATION_VEHICLE">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.APPLICATION_VEHICLE">
+              <MappingFragment StoreEntitySet="APPLICATION_VEHICLE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="APPLICATIONID" ColumnName="APPLICATIONID" />
+                <ScalarProperty Name="VEHICLEID" ColumnName="VEHICLEID" />
+                <ScalarProperty Name="DRIVERID" ColumnName="DRIVERID" />
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CITies">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.CITY">
+              <MappingFragment StoreEntitySet="CITY">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMMENTs">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.COMMENT">
+              <MappingFragment StoreEntitySet="COMMENT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="APPLICATIONID" ColumnName="APPLICATIONID" />
+                <ScalarProperty Name="USERCOMMENT" ColumnName="USERCOMMENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMPANies">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.COMPANY">
+              <MappingFragment StoreEntitySet="COMPANY">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="OWNER" ColumnName="OWNER" />
+                <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="ADDRESSID" ColumnName="ADDRESSID" />
+                <ScalarProperty Name="ESTABLISHMENTDATE" ColumnName="ESTABLISHMENTDATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DISTRICTs">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.DISTRICT">
+              <MappingFragment StoreEntitySet="DISTRICT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="CITYID" ColumnName="CITYID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYEEs">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.EMPLOYEE">
+              <MappingFragment StoreEntitySet="EMPLOYEE">
+                <ScalarProperty Name="EMPLOYEETYPEID" ColumnName="EMPLOYEETYPEID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+                <ScalarProperty Name="IDENTITYNUMBER" ColumnName="IDENTITYNUMBER" />
+                <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
+                <ScalarProperty Name="ADDRESSID" ColumnName="ADDRESSID" />
+                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
+                <ScalarProperty Name="DRIVERLICENSEGROUP" ColumnName="DRIVERLICENSEGROUP" />
+                <ScalarProperty Name="DRIVERLICENSENUMBER" ColumnName="DRIVERLICENSENUMBER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANSPORTTYPEs">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.TRANSPORTTYPE">
+              <MappingFragment StoreEntitySet="TRANSPORTTYPE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERs">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.USER">
+              <MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="IDENTITYNUMBER" ColumnName="IDENTITYNUMBER" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
+                <ScalarProperty Name="ADDRESSID" ColumnName="ADDRESSID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VEHICLEs">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.VEHICLE">
+              <MappingFragment StoreEntitySet="VEHICLE">
+                <ScalarProperty Name="TRANSPORTTYPEID" ColumnName="TRANSPORTTYPEID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PLATENUMBER" ColumnName="PLATENUMBER" />
+                <ScalarProperty Name="VEHICLETYPEID" ColumnName="VEHICLETYPEID" />
+                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
+                <ScalarProperty Name="WEIGHTCAPACITY" ColumnName="WEIGHTCAPACITY" />
+                <ScalarProperty Name="UNITPRICE" ColumnName="UNITPRICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VEHICLE_EMPLOYEE">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.VEHICLE_EMPLOYEE">
+              <MappingFragment StoreEntitySet="VEHICLE_EMPLOYEE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="VEHICLEID" ColumnName="VEHICLEID" />
+                <ScalarProperty Name="EMPLOYEEID" ColumnName="EMPLOYEEID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VEHICLETYPEs">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.VEHICLETYPE">
+              <MappingFragment StoreEntitySet="VEHICLETYPE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYEETYPEs">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.EMPLOYEETYPE">
+              <MappingFragment StoreEntitySet="EMPLOYEETYPE">
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="TransportationModel">
+        <EntityTypeShape EntityType="TransportationDatabaseModel.ADDRESS" Width="1.5" PointX="11" PointY="7.5" Height="3.1340950520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.APPLICATION" Width="1.5" PointX="6" PointY="13.375" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.APPLICATION_VEHICLE" Width="1.5" PointX="8.25" PointY="3.5" Height="2.1725878906250005" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.CITY" Width="1.5" PointX="8.75" PointY="8.25" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.COMMENT" Width="1.5" PointX="8.25" PointY="13.875" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.COMPANY" Width="1.5" PointX="0.75" PointY="7.25" Height="2.9417936197916665" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.DISTRICT" Width="1.5" PointX="8.75" PointY="11.25" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.EMPLOYEE" Width="1.5" PointX="3" PointY="6.875" Height="3.7109993489583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.TRANSPORTTYPE" Width="1.5" PointX="6" PointY="10.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.USER" Width="1.5" PointX="3.75" PointY="13.375" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.VEHICLE" Width="1.5" PointX="6" PointY="3.125" Height="3.1340950520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.VEHICLE_EMPLOYEE" Width="1.5" PointX="5.25" PointY="7.625" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.VEHICLETYPE" Width="1.5" PointX="3.75" PointY="4" Height="1.5956835937500031" IsExpanded="true" />
+        <AssociationConnector Association="TransportationDatabaseModel.FK_ADDRESS_CITY" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.25" PointY="9.047841796875" />
+          <ConnectorPoint PointX="11" PointY="9.047841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_ADDRESS_DISTRICT" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.25" PointY="12.143992513020834" />
+          <ConnectorPoint PointX="11.75" PointY="12.143992513020834" />
+          <ConnectorPoint PointX="11.75" PointY="10.634095052083334" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_APPLICATION_TRANSPORTTYPE" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="12.730286458333334" />
+          <ConnectorPoint PointX="6.75" PointY="13.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_APPLICATION_USER" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="14.845896809895834" />
+          <ConnectorPoint PointX="6" PointY="14.845896809895834" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_APPLICATION_VEHICLE_APPLICATION" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="13.376152846153847" />
+          <ConnectorPoint PointX="7.875" PointY="13.001152846153847" />
+          <ConnectorPoint PointX="7.875" PointY="5.0111640003269535" />
+          <ConnectorPoint PointX="8.25" PointY="5.0111640003269535" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_COMMENT_APPLICATION" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="14.865143229166666" />
+          <ConnectorPoint PointX="8.25" PointY="14.865143229166666" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_APPLICATION_VEHICLE_VEHICLE" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="4.1930820001634768" />
+          <ConnectorPoint PointX="8.25" PointY="4.1930820001634768" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_EMPLOYEE_COMPANY" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="8.7208968098958337" />
+          <ConnectorPoint PointX="3" PointY="8.7208968098958337" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_VEHICLE_COMPANY" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.34375" PointY="7.25" />
+          <ConnectorPoint PointX="1.34375" PointY="3.53125" />
+          <ConnectorPoint PointX="6" PointY="3.53125" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_VEHICLE_EMPLOYEE_EMPLOYEE" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="8.6151432291666659" />
+          <ConnectorPoint PointX="5.25" PointY="8.6151432291666659" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_VEHICLE_EMPLOYEE_VEHICLE" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.375" PointY="6.451396484375" />
+          <ConnectorPoint PointX="6.375" PointY="7.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_VEHICLE_VEHICLETYPE" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="4.7978417968750016" />
+          <ConnectorPoint PointX="6" PointY="4.7978417968750016" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_VEHICLE_TRANSPORTTYPE" >
+          <ConnectorPoint PointX="7.15625" PointY="10.75" />
+          <ConnectorPoint PointX="7.15625" PointY="6.451396484375" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="TransportationDatabaseModel.EMPLOYEETYPE" Width="1.5" PointX="2" PointY="4" Height="1.5956835937500031" />
+        <AssociationConnector Association="TransportationDatabaseModel.FK_EMPLOYEE_EMPLOYEETYPE" >
+          <ConnectorPoint PointX="3.25" PointY="5.5956835937500031" />
+          <ConnectorPoint PointX="3.25" PointY="6.875" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
