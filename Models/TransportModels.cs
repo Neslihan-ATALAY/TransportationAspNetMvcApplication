@@ -1023,7 +1023,7 @@ namespace TransportationMvc2Project.Models
                 try
                 {
                     List<SelectListItem> CityList = new List<SelectListItem>();
-                    var List = transportContext.DatabaseEntities.CITies.ToList();
+                    var List = transportContext.DatabaseEntities.CITies.OrderBy(c => c.NAME).ToList();
                     if (List != null && List.Count > 0)
                     {
                         SelectListItem NewItem = null;
