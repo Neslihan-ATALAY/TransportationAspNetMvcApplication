@@ -24,7 +24,7 @@
                 
                 <ul id="menu">
                     <li>                 
-                        <ul id="companymenu">
+                        <ul id="usermenu">
                             <li style="text-align:left;"><%: Html.ActionLink("Anasayfa", "Index", "Home")%></li>
                             <li style="text-align:left;"><%: Html.ActionLink("Hakkımızda", "About", "Home")%></li>
                             <li style="text-align:left;"><%: Html.ActionLink("Kullanıcı", "CreateUser", "User")%></li>
@@ -32,7 +32,7 @@
                         </ul>
                     </li><br />
                     <li>
-                        <ul id="transportmenu">
+                        <ul id="companymenu">
                             <li style="text-align:left;"><%: Html.ActionLink("Anasayfa", "Index", "Home")%></li>
                             <li style="text-align:left;"><%: Html.ActionLink("Hakkımızda", "About", "Home")%></li>
                             <li style="text-align:left;"><%: Html.ActionLink("Şirket", "CreateCompany", "Company")%></li>
