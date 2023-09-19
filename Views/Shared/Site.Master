@@ -21,25 +21,30 @@
             -->
             
             <div id="menucontainer">
-            
-                <ul id="menu">                    
-                    <ul id="UserMenu">
-                        <li style="text-align:left;"><%: Html.ActionLink("Anasayfa", "Index", "Home")%></li>
-                        <li style="text-align:left;"><%: Html.ActionLink("Hakkımızda", "About", "Home")%></li>
-                        <li style="text-align:left;"><%: Html.ActionLink("Kullanıcı", "CreateUser", "User")%></li>
-                        <li style="text-align:left;"><%: Html.ActionLink("Taşıma Talep", "CreateTransport", "Transport")%></li>
-                    </ul>
-                    <ul id="CompanyMenu">
-                        <li style="text-align:left;"><%: Html.ActionLink("Anasayfa", "Index", "Home")%></li>
-                        <li style="text-align:left;"><%: Html.ActionLink("Hakkımızda", "About", "Home")%></li>
-                        <li style="text-align:left;"><%: Html.ActionLink("Şirket", "CreateCompany", "Company")%></li>
-                        <li style="text-align:left;"><%: Html.ActionLink("Araç", "CreateVehicle", "Vehicle")%></li>
-                        <li style="text-align:left;"><%: Html.ActionLink("Personel", "CreateEmployee", "Employee")%></li>
-                        <li style="text-align:left;"><%: Html.ActionLink("Araç-Personel", "VehicleEmployee", "Employee")%></li>
-                    </ul>
+                
+                <ul id="menu">
+                    <li>                 
+                        <ul id="companymenu">
+                            <li style="text-align:left;"><%: Html.ActionLink("Anasayfa", "Index", "Home")%></li>
+                            <li style="text-align:left;"><%: Html.ActionLink("Hakkımızda", "About", "Home")%></li>
+                            <li style="text-align:left;"><%: Html.ActionLink("Kullanıcı", "CreateUser", "User")%></li>
+                            <li style="text-align:left;"><%: Html.ActionLink("Taşıma Talep", "CreateTransport", "Transport")%></li>
+                        </ul>
+                    </li><br />
+                    <li>
+                        <ul id="transportmenu">
+                            <li style="text-align:left;"><%: Html.ActionLink("Anasayfa", "Index", "Home")%></li>
+                            <li style="text-align:left;"><%: Html.ActionLink("Hakkımızda", "About", "Home")%></li>
+                            <li style="text-align:left;"><%: Html.ActionLink("Şirket", "CreateCompany", "Company")%></li>
+                            <li style="text-align:left;"><%: Html.ActionLink("Araç", "CreateVehicle", "Vehicle")%></li>
+                            <li style="text-align:left;"><%: Html.ActionLink("Personel", "CreateEmployee", "Employee")%></li>
+                            <li style="text-align:left;"><%: Html.ActionLink("Araç-Personel", "VehicleEmployee", "Employee")%></li>
+                        </ul>
+                    </li>
                 </ul>
-            
+
             </div>
+        </div>
         </div>
 
         <div id="main">
