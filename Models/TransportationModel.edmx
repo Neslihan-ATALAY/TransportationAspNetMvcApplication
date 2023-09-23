@@ -15,6 +15,7 @@
           <EntitySet Name="DISTRICT" EntityType="TransportationDatabaseModel.Store.DISTRICT" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="EMPLOYEE" EntityType="TransportationDatabaseModel.Store.EMPLOYEE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="EMPLOYEETYPE" EntityType="TransportationDatabaseModel.Store.EMPLOYEETYPE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ROLE" EntityType="TransportationDatabaseModel.Store.ROLE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TRANSPORTTYPE" EntityType="TransportationDatabaseModel.Store.TRANSPORTTYPE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="USER" EntityType="TransportationDatabaseModel.Store.USER" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="VEHICLE" EntityType="TransportationDatabaseModel.Store.VEHICLE" store:Type="Tables" Schema="dbo" />
@@ -44,6 +45,10 @@
             <End Role="APPLICATION" EntitySet="APPLICATION" />
             <End Role="COMMENT" EntitySet="COMMENT" />
           </AssociationSet>
+          <AssociationSet Name="FK_COMPANY_ROLE" Association="TransportationDatabaseModel.Store.FK_COMPANY_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="COMPANY" EntitySet="COMPANY" />
+          </AssociationSet>
           <AssociationSet Name="FK_EMPLOYEE_COMPANY" Association="TransportationDatabaseModel.Store.FK_EMPLOYEE_COMPANY">
             <End Role="COMPANY" EntitySet="COMPANY" />
             <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
@@ -51,6 +56,10 @@
           <AssociationSet Name="FK_EMPLOYEE_EMPLOYEETYPE" Association="TransportationDatabaseModel.Store.FK_EMPLOYEE_EMPLOYEETYPE">
             <End Role="EMPLOYEETYPE" EntitySet="EMPLOYEETYPE" />
             <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_ROLE" Association="TransportationDatabaseModel.Store.FK_USER_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="USER" EntitySet="USER" />
           </AssociationSet>
           <AssociationSet Name="FK_VEHICLE_COMPANY" Association="TransportationDatabaseModel.Store.FK_VEHICLE_COMPANY">
             <End Role="COMPANY" EntitySet="COMPANY" />
@@ -128,6 +137,9 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="nvarchar" MaxLength="300" />
+          <Property Name="COMPANYUSERNAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="COMPANYPASSWORD" Type="nvarchar" MaxLength="300" />
+          <Property Name="ROLEID" Type="int" />
           <Property Name="OWNER" Type="nvarchar" MaxLength="200" />
           <Property Name="TELEPHONE" Type="nvarchar" MaxLength="100" />
           <Property Name="FAX" Type="nvarchar" MaxLength="100" />
@@ -168,6 +180,13 @@
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="TYPE" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ROLENAME" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="TRANSPORTTYPE">
           <Key>
             <PropertyRef Name="ID" />
@@ -184,7 +203,8 @@
           <Property Name="SURNAME" Type="nvarchar" MaxLength="100" />
           <Property Name="IDENTITYNUMBER" Type="nchar" MaxLength="11" />
           <Property Name="USERNAME" Type="nvarchar" MaxLength="100" />
-          <Property Name="PASSWORD" Type="nvarchar" MaxLength="100" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="300" />
+          <Property Name="ROLEID" Type="int" />
           <Property Name="EMAIL" Type="nvarchar" MaxLength="100" />
           <Property Name="TELEPHONE" Type="nvarchar" MaxLength="100" />
           <Property Name="GENDER" Type="char" MaxLength="1" />
@@ -302,6 +322,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_COMPANY_ROLE">
+          <End Role="ROLE" Type="TransportationDatabaseModel.Store.ROLE" Multiplicity="0..1" />
+          <End Role="COMPANY" Type="TransportationDatabaseModel.Store.COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMPANY">
+              <PropertyRef Name="ROLEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EMPLOYEE_COMPANY">
           <End Role="COMPANY" Type="TransportationDatabaseModel.Store.COMPANY" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -325,6 +357,18 @@
             </Principal>
             <Dependent Role="EMPLOYEE">
               <PropertyRef Name="EMPLOYEETYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_ROLE">
+          <End Role="ROLE" Type="TransportationDatabaseModel.Store.ROLE" Multiplicity="0..1" />
+          <End Role="USER" Type="TransportationDatabaseModel.Store.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="ROLEID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -459,6 +503,15 @@
             <End Role="EMPLOYEETYPE" EntitySet="EMPLOYEETYPEs" />
             <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
           </AssociationSet>
+          <EntitySet Name="ROLEs" EntityType="TransportationDatabaseModel.ROLE" />
+          <AssociationSet Name="FK_COMPANY_ROLE" Association="TransportationDatabaseModel.FK_COMPANY_ROLE">
+            <End Role="ROLE" EntitySet="ROLEs" />
+            <End Role="COMPANY" EntitySet="COMPANies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_ROLE" Association="TransportationDatabaseModel.FK_USER_ROLE">
+            <End Role="ROLE" EntitySet="ROLEs" />
+            <End Role="USER" EntitySet="USERs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ADDRESS">
           <Key>
@@ -537,6 +590,10 @@
           <Property Name="ESTABLISHMENTDATE" Type="DateTime" />
           <NavigationProperty Name="EMPLOYEEs" Relationship="TransportationDatabaseModel.FK_EMPLOYEE_COMPANY" FromRole="COMPANY" ToRole="EMPLOYEE" />
           <NavigationProperty Name="VEHICLEs" Relationship="TransportationDatabaseModel.FK_VEHICLE_COMPANY" FromRole="COMPANY" ToRole="VEHICLE" />
+          <Property Type="String" Name="COMPANYUSERNAME" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="COMPANYPASSWORD" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ROLEID" />
+          <NavigationProperty Name="ROLE" Relationship="TransportationDatabaseModel.FK_COMPANY_ROLE" FromRole="COMPANY" ToRole="ROLE" />
         </EntityType>
         <EntityType Name="DISTRICT">
           <Key>
@@ -593,6 +650,8 @@
           <NavigationProperty Name="APPLICATIONs" Relationship="TransportationDatabaseModel.FK_APPLICATION_USER" FromRole="USER" ToRole="APPLICATION" />
           <Property Type="String" Name="IDENTITYNUMBER" MaxLength="11" FixedLength="true" Unicode="true" />
           <Property Type="String" Name="PASSWORD" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ROLEID" />
+          <NavigationProperty Name="ROLE" Relationship="TransportationDatabaseModel.FK_USER_ROLE" FromRole="USER" ToRole="ROLE" />
         </EntityType>
         <EntityType Name="VEHICLE">
           <Key>
@@ -827,6 +886,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ROLENAME" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="COMPANies" Relationship="TransportationDatabaseModel.FK_COMPANY_ROLE" FromRole="ROLE" ToRole="COMPANY" />
+          <NavigationProperty Name="USERs" Relationship="TransportationDatabaseModel.FK_USER_ROLE" FromRole="ROLE" ToRole="USER" />
+        </EntityType>
+        <Association Name="FK_COMPANY_ROLE">
+          <End Type="TransportationDatabaseModel.ROLE" Role="ROLE" Multiplicity="0..1" />
+          <End Type="TransportationDatabaseModel.COMPANY" Role="COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMPANY">
+              <PropertyRef Name="ROLEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_ROLE">
+          <End Type="TransportationDatabaseModel.ROLE" Role="ROLE" Multiplicity="0..1" />
+          <End Type="TransportationDatabaseModel.USER" Role="USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="ROLEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -894,6 +986,9 @@
           <EntitySetMapping Name="COMPANies">
             <EntityTypeMapping TypeName="TransportationDatabaseModel.COMPANY">
               <MappingFragment StoreEntitySet="COMPANY">
+                <ScalarProperty Name="ROLEID" ColumnName="ROLEID" />
+                <ScalarProperty Name="COMPANYPASSWORD" ColumnName="COMPANYPASSWORD" />
+                <ScalarProperty Name="COMPANYUSERNAME" ColumnName="COMPANYUSERNAME" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="OWNER" ColumnName="OWNER" />
@@ -944,6 +1039,7 @@
           <EntitySetMapping Name="USERs">
             <EntityTypeMapping TypeName="TransportationDatabaseModel.USER">
               <MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="ROLEID" ColumnName="ROLEID" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
                 <ScalarProperty Name="IDENTITYNUMBER" ColumnName="IDENTITYNUMBER" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -996,6 +1092,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ROLEs">
+            <EntityTypeMapping TypeName="TransportationDatabaseModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLE">
+                <ScalarProperty Name="ROLENAME" ColumnName="ROLENAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1026,7 +1130,7 @@
         <EntityTypeShape EntityType="TransportationDatabaseModel.DISTRICT" Width="1.5" PointX="8.75" PointY="11.25" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="TransportationDatabaseModel.EMPLOYEE" Width="1.5" PointX="3" PointY="6.875" Height="3.7109993489583317" IsExpanded="true" />
         <EntityTypeShape EntityType="TransportationDatabaseModel.TRANSPORTTYPE" Width="1.5" PointX="6" PointY="10.75" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportationDatabaseModel.USER" Width="1.5" PointX="3.75" PointY="13.375" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportationDatabaseModel.USER" Width="1.5" PointX="3" PointY="11.75" Height="3.7109993489583353" IsExpanded="true" />
         <EntityTypeShape EntityType="TransportationDatabaseModel.VEHICLE" Width="1.5" PointX="6" PointY="3.125" Height="3.1340950520833317" IsExpanded="true" />
         <EntityTypeShape EntityType="TransportationDatabaseModel.VEHICLE_EMPLOYEE" Width="1.5" PointX="5.25" PointY="7.625" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="TransportationDatabaseModel.VEHICLETYPE" Width="1.5" PointX="3.75" PointY="4" Height="1.5956835937500031" IsExpanded="true" />
@@ -1044,8 +1148,8 @@
           <ConnectorPoint PointX="6.75" PointY="13.375" />
         </AssociationConnector>
         <AssociationConnector Association="TransportationDatabaseModel.FK_APPLICATION_USER" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="14.845896809895834" />
-          <ConnectorPoint PointX="6" PointY="14.845896809895834" />
+          <ConnectorPoint PointX="4.5" PointY="14.417999674479168" />
+          <ConnectorPoint PointX="6" PointY="14.417999674479168" />
         </AssociationConnector>
         <AssociationConnector Association="TransportationDatabaseModel.FK_APPLICATION_VEHICLE_APPLICATION" ManuallyRouted="false">
           <ConnectorPoint PointX="7.5" PointY="13.376152846153847" />
@@ -1062,8 +1166,8 @@
           <ConnectorPoint PointX="8.25" PointY="4.1930820001634768" />
         </AssociationConnector>
         <AssociationConnector Association="TransportationDatabaseModel.FK_EMPLOYEE_COMPANY" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.7208968098958337" />
-          <ConnectorPoint PointX="3" PointY="8.7208968098958337" />
+          <ConnectorPoint PointX="2.25" PointY="9.1054996744791659" />
+          <ConnectorPoint PointX="3" PointY="9.1054996744791659" />
         </AssociationConnector>
         <AssociationConnector Association="TransportationDatabaseModel.FK_VEHICLE_COMPANY" ManuallyRouted="false">
           <ConnectorPoint PointX="1.34375" PointY="7.25" />
@@ -1090,6 +1194,15 @@
         <AssociationConnector Association="TransportationDatabaseModel.FK_EMPLOYEE_EMPLOYEETYPE" >
           <ConnectorPoint PointX="3.25" PointY="5.5956835937500031" />
           <ConnectorPoint PointX="3.25" PointY="6.875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="TransportationDatabaseModel.ROLE" Width="1.5" PointX="0.75" PointY="12.125" Height="1.7879850260416674" />
+        <AssociationConnector Association="TransportationDatabaseModel.FK_COMPANY_ROLE" >
+          <ConnectorPoint PointX="1.5" PointY="12.125" />
+          <ConnectorPoint PointX="1.5" PointY="10.960999348958334" />
+        </AssociationConnector>
+        <AssociationConnector Association="TransportationDatabaseModel.FK_USER_ROLE" >
+          <ConnectorPoint PointX="2.25" PointY="13.018992513020834" />
+          <ConnectorPoint PointX="3" PointY="13.018992513020834" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
