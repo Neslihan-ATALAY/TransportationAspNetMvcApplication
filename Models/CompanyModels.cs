@@ -22,6 +22,10 @@ namespace TransportationMvc2Project.Models
     {        
         private int _id;
         private string _name;
+        private string _companyUserName;
+        private string _companyPassWord;
+        private int _roleId;
+        private RoleModel _role;
         private string _owner;
         private string _telephone;
         private string _fax;
@@ -43,6 +47,29 @@ namespace TransportationMvc2Project.Models
         {
             get { return _name; }
             set { _name = value; }
+        }
+        [DisplayName("ŞİRKET KULLANICI ADI")]
+        public string CompanyUserName
+        {
+            get { return _companyUserName; }
+            set { _companyUserName = value; }
+        }
+        [DisplayName("ŞİRKET PAROLASI / ŞİFRESİ")]
+        [DataType(DataType.Password)]
+        public string CompanyPassWord
+        {
+            get { return _companyPassWord; }
+            set { _companyPassWord = value; }
+        }
+        public int RoleId
+        {
+            get { return _roleId; }
+            set { _roleId = value; }
+        }
+        public RoleModel Role
+        {
+            get { return _role; }
+            set { _role = value; }
         }
         [DisplayName("ŞİRKET SAHİBİ ADI")]                
         public string Owner
@@ -550,6 +577,20 @@ namespace TransportationMvc2Project.Models
                         if (_COMPANY.ID != 0)
                         {
                             CompanyModel.Id = _COMPANY.ID;
+                        }
+                    }
+                    {
+                        //Taşıma talebinin kullanıcısı kayıtlı değilse kullanıcı güncellenir.
+                        if (CompanyModel.Role != null && CompanyModel.RoleId != 0)
+                        {
+                            _COMPANY.ROLEID = CompanyModel.RoleId;
+                            var _ROLE = companyContext.TransportContext.DatabaseEntities.ROLEs.Where
+                                (r => r.ID == CompanyModel.RoleId).FirstOrDefault();
+                            _COMPANY.ROLE = _ROLE;
+                            if (_COMPANY != null)
+                            {
+                                result2 = companyContext.TransportContext.DatabaseEntities.SaveChanges();
+                            }
                         }
                     }
                     {
@@ -1184,6 +1225,12 @@ namespace TransportationMvc2Project.Models
                 }
             }
             return null;
+        }
+
+        public static string DecryptPasswordBase64(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
         
     }
