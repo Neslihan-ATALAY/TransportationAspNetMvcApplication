@@ -8,7 +8,7 @@
     <h2><%: ViewData["Message"] %></h2>
     <p>
         <br /><br />
-        HACKATHON - TRANSPORTATION APPLICATION
+        HACKATHON - TRANSPORTATHON APPLICATION
         <br /><br /><br /><br />
         YARIŞMA - NAKLİYAT UYGULAMASI
     </p>
