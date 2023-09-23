@@ -6,51 +6,29 @@
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
     <link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
 </head>
-
 <body>
     <div class="page">
-
         <div id="header">
             <div id="title">
                 <h1>NAKLİYAT UYGULAMASI</h1>
             </div>
-            <!--  
             <div id="logindisplay">
                 <% Html.RenderPartial("LogOnUserControl"); %>
             </div>
-            -->
-            
             <div id="menucontainer">
-                
                 <ul id="menu">
-                    <li>                 
-                        <ul id="usermenu">
-                            <li style="text-align:left;"><%: Html.ActionLink("Anasayfa", "Index", "Home")%></li>
-                            <li style="text-align:left;"><%: Html.ActionLink("Hakkımızda", "About", "Home")%></li>
-                            <li style="text-align:left;"><%: Html.ActionLink("Kullanıcı", "CreateUser", "User")%></li>
-                            <li style="text-align:left;"><%: Html.ActionLink("Taşıma Talep", "CreateTransport", "Transport")%></li>
-                        </ul>
-                    </li><br />
-                    <li>
-                        <ul id="companymenu">
-                            <li style="text-align:left;"><%: Html.ActionLink("Anasayfa", "Index", "Home")%></li>
-                            <li style="text-align:left;"><%: Html.ActionLink("Hakkımızda", "About", "Home")%></li>
-                            <li style="text-align:left;"><%: Html.ActionLink("Şirket", "CreateCompany", "Company")%></li>
-                            <li style="text-align:left;"><%: Html.ActionLink("Araç", "CreateVehicle", "Vehicle")%></li>
-                            <li style="text-align:left;"><%: Html.ActionLink("Personel", "CreateEmployee", "Employee")%></li>
-                            <li style="text-align:left;"><%: Html.ActionLink("Araç-Personel", "VehicleEmployee", "Employee")%></li>
-                        </ul>
-                    </li>
+                    <% if (!Request.IsAuthenticated) { %>
+                        <li style="text-align:left;"><%: Html.ActionLink("Anasayfa", "Index", "Home") %> </li>
+                        <li style="text-align:left;"><%: Html.ActionLink("Kullanıcı Kaydetme", "CreateUser", "User") %> </li>
+                        <li style="text-align:left;"><%: Html.ActionLink("Şirket Kaydetme", "CreateCompany", "Company") %> </li>
+                    <% } %>
                 </ul>
-
             </div>
         </div>
-        </div>
-
         <div id="main">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-
             <div id="footer">
+                Transportathon Hackathon Application
             </div>
         </div>
     </div>
