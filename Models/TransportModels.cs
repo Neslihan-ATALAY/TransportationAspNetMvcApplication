@@ -437,7 +437,6 @@ namespace TransportationMvc2Project.Models
     public class LoginModel
     {
         private string _username;
-        private string _companyusername;
         private string _password;
         private int _roleId;
         private RoleModel _role;
