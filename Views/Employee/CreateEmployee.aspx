@@ -7,6 +7,16 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.EmployeeModel
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+    <div id="pagemenucontainer" style="background-color:#5c87b2">
+        <ul id="menu">
+            <% if (Page.User.Identity.IsAuthenticated && Page.User.IsInRole("ŞİRKET")) { %>
+                <li style="text-align:left;"><%: Html.ActionLink("Araç", "CreateVehicle", "Vehicle") %> </li>
+		        <li style="text-align:left;"><%: Html.ActionLink("Personel", "CreateEmployee", "Employee") %> </li>
+		        <li style="text-align:left;"><%: Html.ActionLink("Araç-Personel", "VehicleEmployee", "Employee") %> </li>
+            <% } %>
+        </ul>
+    </div>
+
     <h2>Çalışan Personel Ekleme</h2>
 
     <% using (Html.BeginForm()) {%>
@@ -78,7 +88,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.EmployeeModel
                 </div>
                 <div class="editor-field">
                     <%: Html.DropDownList("Cities", ViewData["CityList"] as List<SelectListItem>, 
-                        new { style = "width:220px;" }) %>
+                        new { style = "width:206px;" }) %>
                     <%: Html.ValidationMessageFor(model => model.Address.City.Name)%>
                 </div>
             
@@ -136,7 +146,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.EmployeeModel
             </div>
             <div class="editor-field">
                 <%: Html.DropDownList("Companies", ViewData["CompanyList"] as List<SelectListItem>, 
-                    new { style = "width:250px;" }) %>
+                    new { style = "width:350px;" }) %>
                 <%: Html.ValidationMessageFor(model => model.Company.Name)%>
             </div>
 
@@ -145,7 +155,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.EmployeeModel
             </div>
             <div class="editor-field">
                 <%: Html.DropDownList("EmployeeTypes", ViewData["EmployeeTypeList"] as List<SelectListItem>, 
-                    new { style = "width:250px;" }) %>
+                    new { style = "width:350px;" }) %>
                 <%: Html.ValidationMessageFor(model => model.EmployeeType.Type)%>
             </div>
             
@@ -164,7 +174,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.EmployeeModel
                 <%: Html.TextBoxFor(model => model.DriverLicenseNumber) %>
                 <%: Html.ValidationMessageFor(model => model.DriverLicenseNumber) %>
             </div>
-            
+            <br />
             <p>
                 <input type="submit" value="PERSONEL EKLE" />
             </p>
