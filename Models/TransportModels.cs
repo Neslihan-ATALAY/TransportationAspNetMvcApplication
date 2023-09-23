@@ -9,8 +9,9 @@ using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
-using TransportationMvc2Project.Models;
 using System.Web.Mvc;
+using System.Web.Security;
+using TransportationMvc2Project.Models;
 
 
 //
@@ -27,6 +28,8 @@ namespace TransportationMvc2Project.Models
         private string _identityNumber;
         private string _username;
         private string _password;
+        private int _roleId;
+        private RoleModel _role;
         private string _email;
         private string _telephone;
         private Char _gender;
@@ -68,10 +71,21 @@ namespace TransportationMvc2Project.Models
             set { _username = value; }
         }
         [DisplayName("KULLANICI PAROLASI / ŞİFRESİ")]
+        [DataType(DataType.Password)]
         public string PassWord
         {
             get { return _password; }
             set { _password = value; }
+        }
+        public int RoleId
+        {
+            get { return _roleId; }
+            set { _roleId = value; }
+        }
+        public RoleModel Role
+        {
+            get { return _role; }
+            set { _role = value; }
         }
         [DisplayName("KULLANICI EPOSTA ADRESİ")]
         public string Email
@@ -420,6 +434,58 @@ namespace TransportationMvc2Project.Models
             set { _userComment = value; }
         }
     }
+    public class LoginModel
+    {
+        private string _username;
+        private string _companyusername;
+        private string _password;
+        private int _roleId;
+        private RoleModel _role;
+
+        [DisplayName("KULLANICI ADI")]
+        public string UserName
+        {
+            get { return _username; }
+            set { _username = value; }
+        }
+        [DisplayName("PAROLA / ŞİFRE")]
+        [DataType(DataType.Password)]
+        public string PassWord
+        {
+            get { return _password; }
+            set { _password = value; }
+        }
+        public int RoleId
+        {
+            get { return _roleId; }
+            set { _roleId = value; }
+        }
+        public RoleModel Role
+        {
+            get { return _role; }
+            set { _role = value; }
+        }
+    }
+    public class RoleModel
+    {
+        private int _id;
+        private string _roleName;
+
+        [Key]
+        [Required]
+        [DisplayName("ROL ID")]
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+        [DisplayName("ROL ADI")]
+        public string RoleName
+        {
+            get { return _roleName; }
+            set { _roleName = value; }
+        }
+    }
 
     #endregion
     
@@ -556,8 +622,8 @@ namespace TransportationMvc2Project.Models
         List<SelectListItem> GetCityList();
         List<SelectListItem> GetUserList();
         List<SelectListItem> GetTransportTypeList();
-        //string EncryptPasswordBase64(string text);
-        //string DecryptPasswordBase64(string base64EncodedData);
+        List<SelectListItem> GetRoleList();
+        List<SelectListItem> GetRoleList(string role);
     }
 
     public class TransportService : ITransportService
@@ -606,7 +672,7 @@ namespace TransportationMvc2Project.Models
             {
                 try
                 {
-                    var result1 = 0; var result2 = 0; var result3 = 0;
+                    var result1 = 0; var result2 = 0; var result3 = 0; var result4 = 0;
                     var _USER = new USER
                     {
                         NAME = UserModel.Name,
@@ -654,6 +720,20 @@ namespace TransportationMvc2Project.Models
                         }
                     }
                     {
+                        //Taşıma talebinin kullanıcısı kayıtlı değilse kullanıcı güncellenir.
+                        if (UserModel.Role != null && UserModel.RoleId != 0)
+                        {
+                            _USER.ROLEID = UserModel.RoleId;
+                            var _ROLE = transportContext.DatabaseEntities.ROLEs.Where
+                                (r => r.ID == UserModel.RoleId).FirstOrDefault();
+                            _USER.ROLE = _ROLE;
+                            if (_USER != null)
+                            {
+                                result2 = transportContext.DatabaseEntities.SaveChanges();
+                            }
+                        }
+                    }
+                    {
                         //Personelin adresi kayıtlı ise adresi güncellenir.
                         UserModel.Address.City.Name = transportContext.DatabaseEntities.CITies
                             .Where(c => c.ID == UserModel.Address.CityId).FirstOrDefault().NAME;
@@ -667,7 +747,7 @@ namespace TransportationMvc2Project.Models
                             && a.BUILDINGNO == UserModel.Address.BuildingNo
                             && a.INNERDOORNO == UserModel.Address.InnerDoorNo).FirstOrDefault() == null))
                         {
-                            result2 = AddAddress(UserModel.Address);
+                            result3 = AddAddress(UserModel.Address);
                         }
                         //Şirketin adresi kayıtlı ise adresi güncellenir.
                         if (UserModel.Address != null
@@ -694,11 +774,11 @@ namespace TransportationMvc2Project.Models
                                 (a => a.ID == UserModel.AddressId).FirstOrDefault();
                             if (_USER != null && _USER.ADDRESSID != null)
                             {
-                                result3 = transportContext.DatabaseEntities.SaveChanges();
+                                result4 = transportContext.DatabaseEntities.SaveChanges();
                             }
                         }
                     }
-                    return result1 & result2 & result3;
+                    return result1 & result2 & result3 & result4;
                 }
                 catch (Exception exc)
                 {
@@ -1016,6 +1096,47 @@ namespace TransportationMvc2Project.Models
             return 0;
         }
 
+        public int LogOn(LoginModel LoginModel)
+        {
+            using (var transportContext = new TransportContext())
+            {
+                try
+                {
+                    var result = 0;
+                    string password = EncryptPasswordBase64(LoginModel.PassWord.ToString());
+                    if (transportContext.DatabaseEntities.ROLEs.Where(r => r.ID == LoginModel.RoleId).FirstOrDefault() != null)
+                    {
+                        if (LoginModel != null
+                            && transportContext.DatabaseEntities.COMPANies.Where(c => c.COMPANYUSERNAME.Equals(LoginModel.UserName)
+                            && c.COMPANYPASSWORD.Equals(password)
+                            && c.ROLEID == LoginModel.RoleId).FirstOrDefault() != null)
+                        {
+                            result = 1;
+                        }
+                        else if (LoginModel != null
+                            && transportContext.DatabaseEntities.USERs.Where(u => u.USERNAME.Equals(LoginModel.UserName)
+                            && u.PASSWORD.Equals(password)
+                            && u.ROLEID == LoginModel.RoleId).FirstOrDefault() != null)
+                        {
+                            result = 1;
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
+                    }
+                    return result;
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.Message);
+                    Console.WriteLine(exc.InnerException.ToString());
+                }
+            }
+            return 0;
+
+        }
+
         public List<SelectListItem> GetCityList()
         {
             using (var transportContext = new TransportContext())
@@ -1119,6 +1240,68 @@ namespace TransportationMvc2Project.Models
             return null;
         }
 
+        public List<SelectListItem> GetRoleList()
+        {
+            using (var transportContext = new TransportContext())
+            {
+                try
+                {
+                    List<SelectListItem> TransportTypeList = new List<SelectListItem>();
+                    var List = transportContext.DatabaseEntities.ROLEs.ToList();
+                    if (List != null && List.Count > 0)
+                    {
+                        SelectListItem NewItem = null;
+                        TransportTypeList.Add(new SelectListItem() { Text = "ROLLER", Value = "0" });
+                        foreach (var Item in List)
+                        {
+                            NewItem = new SelectListItem();
+                            NewItem.Text = Item.ROLENAME.ToString();
+                            NewItem.Value = Item.ID.ToString();
+                            TransportTypeList.Add(NewItem);
+                        }
+                    }
+                    return TransportTypeList;
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.Message);
+                    Console.WriteLine(exc.InnerException.ToString());
+                }
+            }
+            return null;
+        }
+
+        public List<SelectListItem> GetRoleList(string role)
+        {
+            using (var transportContext = new TransportContext())
+            {
+                try
+                {
+                    List<SelectListItem> TransportTypeList = new List<SelectListItem>();
+                    var List = transportContext.DatabaseEntities.ROLEs.Where(r => r.ROLENAME == role).ToList();
+                    if (List != null && List.Count > 0)
+                    {
+                        SelectListItem NewItem = null;
+                        TransportTypeList.Add(new SelectListItem() { Text = "ROLLER", Value = "0" });
+                        foreach (var Item in List)
+                        {
+                            NewItem = new SelectListItem();
+                            NewItem.Text = Item.ROLENAME.ToString();
+                            NewItem.Value = Item.ID.ToString();
+                            TransportTypeList.Add(NewItem);
+                        }
+                    }
+                    return TransportTypeList;
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.Message);
+                    Console.WriteLine(exc.InnerException.ToString());
+                }
+            }
+            return null;
+        }
+
         public static string EncryptPasswordBase64(string text)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(text);
@@ -1129,6 +1312,102 @@ namespace TransportationMvc2Project.Models
         {
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+    }
+
+    public class UserRoleProvider : RoleProvider
+    {
+        public override string ApplicationName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override void AddUsersToRoles(string[] usernames, string[] roleNames)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CreateRole(string roleName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool DeleteRole(string roleName, bool throwOnPopulatedRole)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string[] FindUsersInRole(string roleName, string usernameToMatch)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string[] GetAllRoles()
+        {
+            using (var transportContext = new TransportContext())
+            {
+                try
+                {
+                    string[] Roles = transportContext.DatabaseEntities.ROLEs.Select( x => x.ROLENAME).ToArray();
+                    return Roles;
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.Message.ToString());
+                    Console.WriteLine(exc.InnerException.ToString());
+                }
+            }
+            return null;
+        }
+
+        public override string[] GetRolesForUser(string username)
+        {
+            using (var transportContext = new TransportContext())
+            {
+                try
+                {
+                    /* var userRoles = from user in transportContext.DatabaseEntities.USERs
+                                    join role in transportContext.DatabaseEntities.ROLEs
+                                    on user.ROLEID equals role.ID
+                                    where user.USERNAME == username
+                                    select role.ROLENAME.ToArray(); */
+                    string[] Roles = transportContext.DatabaseEntities.ROLEs.Select(x => x.ROLENAME).ToArray();
+                    return Roles;
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.Message.ToString());
+                    Console.WriteLine(exc.InnerException.ToString());
+                }
+            }
+            return null;
+        }
+
+        public override string[] GetUsersInRole(string roleName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool IsUserInRole(string username, string roleName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool RoleExists(string roleName)
+        {
+            throw new NotImplementedException();
         }
     }
 
