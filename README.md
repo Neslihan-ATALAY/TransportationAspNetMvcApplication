@@ -28,5 +28,4 @@ Nakliyat/Taşıma Uygulaması, Visual Studio'nun ASP.NET MVC 2 Web Application t
 Uygulamanın kodlanması Microsoft Visual Studio 2010 editöründe geliştirilmiştir.
 Veritabanının tasarımı Microsoft SQL Server Management Studio 2008 veritabanı yönetim sisteminde yapılmıştır.
 
-19.09.2023
-Neslihan ATALAY
+Uygulamayı hazırlayan: Neslihan ATALAY
