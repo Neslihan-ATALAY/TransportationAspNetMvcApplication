@@ -7,7 +7,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.UserModel>" %
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Kullanıcı Ekleme</h2>
+    <h2>Kullanıcı Ekleme / Kullanıcı Kaydı</h2>
 
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>
@@ -41,6 +41,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.UserModel>" %
 
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.UserName) %>
+                <%: Html.Label("Kullanıcı adınızı uygulamaya giriş yaparken kullanabilirsiniz") %>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.UserName) %>
@@ -49,10 +50,20 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.UserModel>" %
 
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.PassWord) %>
+                <%: Html.Label("Kullanıcı şifrenizi uygulamaya giriş yaparken kullanabilirsiniz") %>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.PassWord) %>
                 <%: Html.ValidationMessageFor(model => model.PassWord) %>
+            </div>
+
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Role.RoleName) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.DropDownList("Roles", ViewData["RoleList"] as List<SelectListItem>, 
+                        new { style = "width:206px;" }) %>
+                <%: Html.ValidationMessageFor(model => model.Role.RoleName) %>
             </div>
             
             <div class="editor-label">
@@ -96,7 +107,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.UserModel>" %
                 </div>
                 <div class="editor-field">
                     <%: Html.DropDownList("Cities", ViewData["CityList"] as List<SelectListItem>, 
-                        new { style = "width:220px;" }) %>
+                        new { style = "width:206px;" }) %>
                     <%: Html.ValidationMessageFor(model => model.Address.City.Name)%>
                 </div>
             
@@ -148,7 +159,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.UserModel>" %
                     <%: Html.ValidationMessageFor(model => model.Address.InnerDoorNo)%>
                 </div>
             </fieldset>
-            
+            <br />
             <p>
                 <input type="submit" value="KULLANICI KAYDET" />
             </p>
