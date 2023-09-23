@@ -52,6 +52,7 @@ namespace TransportationMvc2Project.Controllers
             CompanyModel CompanyFormModel = new CompanyModel();
             CompanyFormModel.Address = new AddressModel();
             ViewData["CityList"] = TransportService.GetCityList();
+            ViewData["RoleList"] = TransportService.GetRoleList("ŞİRKET");
             return View(CompanyFormModel);
         }
 
@@ -59,6 +60,7 @@ namespace TransportationMvc2Project.Controllers
         // POST: /Company/Create
 
         [HttpPost]
+        [Authorize(Roles = "ŞİRKET")]
         public ActionResult CreateCompany(FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -68,17 +70,23 @@ namespace TransportationMvc2Project.Controllers
                     CompanyModel CompanyFormModel = new CompanyModel();
                     CompanyFormModel.Address = new AddressModel();
                     ViewData["CityList"] = TransportService.GetCityList();
+                    ViewData["RoleList"] = TransportService.GetRoleList("ŞİRKET");
                     try
                     {
                         CompanyFormModel.Name = collection.Get("Name");
+                        CompanyFormModel.CompanyUserName = collection.Get("CompanyUserName");
+                        CompanyFormModel.CompanyPassWord = collection.Get("CompanyPassWord");
+                        CompanyFormModel.Role = new RoleModel();
+                        CompanyFormModel.Role.Id = Convert.ToInt32(collection.Get(3));
+                        CompanyFormModel.RoleId = Convert.ToInt32(collection.Get(3));
                         CompanyFormModel.Owner = collection.Get("Owner");
                         CompanyFormModel.Telephone = collection.Get("Telephone");
                         CompanyFormModel.Fax = collection.Get("Fax");
                         CompanyFormModel.Email = collection.Get("Email");
                         CompanyFormModel.Address = new AddressModel();
                         CompanyFormModel.Address.City = new CityModel();
-                        CompanyFormModel.Address.City.Id = Convert.ToInt32(collection.Get(5));
-                        CompanyFormModel.Address.CityId = Convert.ToInt32(collection.Get(5));
+                        CompanyFormModel.Address.City.Id = Convert.ToInt32(collection.Get(8));
+                        CompanyFormModel.Address.CityId = Convert.ToInt32(collection.Get(8));
                         CompanyFormModel.Address.Town = collection.Get("Address.Town");
                         CompanyFormModel.Address.Neighbourhood = collection.Get("Address.Neighbourhood");
                         CompanyFormModel.Address.Street = collection.Get("Address.Street");
