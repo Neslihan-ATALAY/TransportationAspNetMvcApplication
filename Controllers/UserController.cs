@@ -53,6 +53,7 @@ namespace TransportationMvc2Project.Controllers
             UserModel UserModel = new UserModel();
             UserModel.Address = new AddressModel();
             ViewData["CityList"] = TransportService.GetCityList();
+            ViewData["RoleList"] = TransportService.GetRoleList("KULLANICI");
             return View(UserModel);
         }
 
@@ -60,6 +61,7 @@ namespace TransportationMvc2Project.Controllers
         // POST: /User/Create
 
         [HttpPost]
+        [Authorize(Roles = "KULLANICI")]
         public ActionResult CreateUser(FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -69,21 +71,25 @@ namespace TransportationMvc2Project.Controllers
                     UserModel userFormModel = new UserModel();
                     userFormModel.Address = new AddressModel();
                     ViewData["CityList"] = TransportService.GetCityList();
+                    ViewData["RoleList"] = TransportService.GetRoleList("KULLANICI");
                     try
                     {
                         userFormModel.Name = collection.Get("Name");
                         userFormModel.Surname = collection.Get("Surname");
                         userFormModel.IdentityNumber = collection.Get("IdentityNumber");
                         userFormModel.UserName = collection.Get("UserName");
-                        userFormModel.PassWord = TransportService.EncryptPasswordBase64(collection.Get("PassWord")); ;
+                        userFormModel.PassWord = TransportService.EncryptPasswordBase64(collection.Get("PassWord"));
+                        userFormModel.Role = new RoleModel();
+                        userFormModel.Role.Id = Convert.ToInt32(collection.Get(5));
+                        userFormModel.RoleId = Convert.ToInt32(collection.Get(5));
                         userFormModel.Email = collection.Get("Email");
                         userFormModel.Telephone = collection.Get("Telephone");
                         userFormModel.Gender = Convert.ToChar(collection.Get("Gender"));
                         userFormModel.BirthDate = Convert.ToDateTime(collection.Get("BirthDate"));
                         userFormModel.Address = new AddressModel();
                         userFormModel.Address.City = new CityModel();
-                        userFormModel.Address.City.Id = Convert.ToInt32(collection.Get(9));
-                        userFormModel.Address.CityId = Convert.ToInt32(collection.Get(9));
+                        userFormModel.Address.City.Id = Convert.ToInt32(collection.Get(10));
+                        userFormModel.Address.CityId = Convert.ToInt32(collection.Get(10));
                         userFormModel.Address.Town = collection.Get("Address.Town");
                         userFormModel.Address.Neighbourhood = collection.Get("Address.Neighbourhood");
                         userFormModel.Address.Street = collection.Get("Address.Street");
@@ -91,7 +97,7 @@ namespace TransportationMvc2Project.Controllers
                         userFormModel.Address.BuildingNo = Convert.ToInt32(collection.Get("Address.BuildingNo"));
                         userFormModel.Address.InnerDoorNo = Convert.ToInt32(collection.Get("Address.InnerDoorNo"));
                         TransportService.AddUser(userFormModel);
-                        return RedirectToAction("CreateUser", "User");
+                        return RedirectToAction("UserLogin", "User");
                     }
                     catch (Exception e)
                     {
@@ -99,6 +105,129 @@ namespace TransportationMvc2Project.Controllers
                         Console.WriteLine(e.InnerException.Message);
                     }
                     return View(userFormModel);
+                }
+                catch
+                {
+                    return View();
+                }
+            }
+            return View();
+        }
+
+        //
+        // GET: /User/UserLogOn
+
+        //[AllowAnonymous]
+        public ActionResult UserLogOn()
+        {
+            LoginModel LoginModel = new LoginModel();
+            ViewData["RoleList"] = TransportService.GetRoleList();
+            return View(LoginModel);
+        }
+
+        //
+        // POST: /User/UserLogOn
+
+        [HttpPost]
+        public ActionResult UserLogOn(FormCollection collection)
+        {            
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    LoginModel LoginFormModel = new LoginModel();
+                    ViewData["RoleList"] = TransportService.GetRoleList();
+                    try
+                    {
+                        ViewData["UserName"] = null; ViewData["PassWord"] = null;
+                        if (collection.Get("UserName") != null && collection.Get("UserName") != ""
+                            && collection.Get("PassWord") != null && collection.Get("PassWord") != ""
+                            && collection.Get(2) != null && Convert.ToInt32(collection.Get(2)) != 0)
+                        {
+                            LoginFormModel.UserName = collection.Get("UserName");
+                            LoginFormModel.PassWord = collection.Get("PassWord");
+                            LoginFormModel.Role = new RoleModel();
+                            LoginFormModel.RoleId = Convert.ToInt32(collection.Get(2));
+                            LoginFormModel.Role.Id = Convert.ToInt32(collection.Get(2));
+                            if (TransportService.LogOn(LoginFormModel) == 1)
+                            {
+//int rememberMe = true;FormsAuthentication.SetAuthCookie(userLogOnFormModel.UserName, rememberMe, "D:\\Cookies");
+                                FormsAuthentication.SetAuthCookie(LoginFormModel.UserName, false);
+                                //KULLANICI GİRİŞİ
+                                if (LoginFormModel.RoleId == 1)
+                                {
+                                    return RedirectToAction("CreateTransport", "Transport");
+                                }
+                                //ŞİRKET GİRİŞİ
+                                else if (LoginFormModel.RoleId == 2)
+                                {
+                                    return RedirectToAction("CreateVehicle", "Vehicle");
+                                }
+                                //ADMIN GİRİŞİ
+                                else if (LoginFormModel.RoleId == 3)
+                                {
+                                    return RedirectToAction("", "");
+                                }
+                            }
+                            else
+                            {
+                                ViewData["UserLogOnMessage"] 
+                                    = "Geçersiz Kullanıcı. Kullanıcı Adı veya Kullanıcı Şifresi Hatalı! Lütfen Tekrar Deneyiniz.";
+                            }
+                        }
+                        else
+                        {
+                            ViewData["UserLogOnMessage"] = 
+                                "Kullanıcı Adı ve Şifre Alanları Doldurulmalıdır, Kullanıcı Tipi Seçilmelidir";
+                        }
+                        
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine(e.InnerException.Message);
+                    }
+                    return View(LoginFormModel);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.InnerException.Message);
+                }
+            }
+            return View();
+        }
+
+        //
+        // GET: /User/UserLogOff
+
+        public ActionResult UserLogOff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("UserLogOn", "User");
+        }
+
+        //
+        // POST: /User/UserLogOff
+
+        [HttpPost]
+        public ActionResult UserLogOff(FormCollection collection)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    try
+                    {
+                        FormsAuthentication.SignOut();
+                        return RedirectToAction("UserLogOn", "User");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine(e.InnerException.Message);
+                    }
+                    return View();
                 }
                 catch
                 {
