@@ -45,9 +45,10 @@ namespace TransportationMvc2Project.Controllers
             return View();
         }
 
-        //
+                //
         // GET: /Employee/Create
 
+        [Authorize(Roles = "ŞİRKET")]
         public ActionResult CreateEmployee()
         {
             EmployeeModel EmployeeFormModel = new EmployeeModel();
@@ -63,6 +64,7 @@ namespace TransportationMvc2Project.Controllers
         // POST: /Employee/Create
 
         [HttpPost]
+        [Authorize(Roles = "ŞİRKET")]
         public ActionResult CreateEmployee(FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -123,6 +125,7 @@ namespace TransportationMvc2Project.Controllers
         //
         // GET: /Employee/VehicleEmployee
 
+        [Authorize(Roles = "ŞİRKET")]
         public ActionResult VehicleEmployee()
         {
             VehicleEmployeeModel VehicleEmployeeFormModel = new VehicleEmployeeModel();
@@ -141,6 +144,7 @@ namespace TransportationMvc2Project.Controllers
         // POST: /Employee/VehicleEmployee
 
         [HttpPost]
+        [Authorize(Roles = "ŞİRKET")]
         public ActionResult VehicleEmployee(FormCollection collection)
         {
             if (ModelState.IsValid)
