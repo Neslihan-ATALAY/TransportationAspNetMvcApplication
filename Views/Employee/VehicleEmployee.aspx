@@ -7,6 +7,16 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.VehicleEmploy
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+    <div class="pagemenucontainer" style="background-color:#5c87b2">
+        <ul id="menu">
+            <% if (Page.User.Identity.IsAuthenticated && Page.User.IsInRole("ŞİRKET")) { %>
+                <li style="text-align:left;"><%: Html.ActionLink("Araç", "CreateVehicle", "Vehicle") %> </li>
+		        <li style="text-align:left;"><%: Html.ActionLink("Personel", "CreateEmployee", "Employee") %> </li>
+		        <li style="text-align:left;"><%: Html.ActionLink("Araç-Personel", "VehicleEmployee", "Employee") %> </li>
+            <% } %>
+        </ul>
+    </div>
+
     <h2>Araç Personel Ekleme</h2>
 
     <% using (Html.BeginForm()) {%>
@@ -32,7 +42,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.VehicleEmploy
                     new { style = "width:50%; height:300px;" })%>
                 <%: Html.ValidationMessageFor(model => model.Employee.IdentityNumber) %>
             </div>
-            
+            <br />
             <p>
                 <input type="submit" value="ARAÇ-PERSONEL KAYDET" />
             </p>
