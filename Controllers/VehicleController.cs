@@ -48,6 +48,7 @@ namespace TransportationMvc2Project.Controllers
         //
         // GET: /Vehicle/Create
 
+        [Authorize(Roles = "ŞİRKET")]
         public ActionResult CreateVehicle()
         {
             VehicleModel VehicleFormModel = new VehicleModel();
@@ -63,6 +64,7 @@ namespace TransportationMvc2Project.Controllers
         // POST: /Vehicle/Create
 
         [HttpPost]
+        [Authorize(Roles = "ŞİRKET")]
         public ActionResult CreateVehicle(FormCollection collection)
         {
             if (ModelState.IsValid)
