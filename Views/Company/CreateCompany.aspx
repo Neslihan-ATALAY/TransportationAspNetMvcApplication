@@ -7,7 +7,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.CompanyModel>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Taşıma / Nakliyat / Lojistik Şirketi Ekleme</h2>
+    <h2>Taşıma / Nakliyat / Lojistik Şirketi Ekleme - Şirket Kaydetme</h2>
 
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>
@@ -21,6 +21,33 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.CompanyModel>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.Name) %>
                 <%: Html.ValidationMessageFor(model => model.Name) %>
+            </div>
+
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.CompanyUserName) %>
+                <%: Html.Label("Şirket kullanıcı adınızı uygulamaya giriş yaparken kullanabilirsiniz") %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.CompanyUserName)%>
+                <%: Html.ValidationMessageFor(model => model.CompanyUserName)%>
+            </div>
+            
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.CompanyPassWord) %>
+                <%: Html.Label("Şirket kullanıcı şifrenizi uygulamaya giriş yaparken kullanabilirsiniz") %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.CompanyPassWord)%>
+                <%: Html.ValidationMessageFor(model => model.CompanyPassWord)%>
+            </div>
+
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Role.RoleName) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.DropDownList("Roles", ViewData["RoleList"] as List<SelectListItem>, 
+                        new { style = "width:206px;" }) %>
+                <%: Html.ValidationMessageFor(model => model.Role.RoleName) %>
             </div>
             
             <div class="editor-label">
