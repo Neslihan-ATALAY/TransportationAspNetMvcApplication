@@ -7,6 +7,14 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.ApplicationMo
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+    <div id="pagemenucontainer" style="background-color:#5c87b2">
+        <ul id="menu">
+            <% if (Page.User.Identity.IsAuthenticated && Page.User.IsInRole("KULLANICI")) { %>
+                <li style="text-align:left;"><%: Html.ActionLink("Taşıma Talep", "CreateTransport", "Transport") %> </li>
+            <% } %>
+        </ul>
+    </div>
+
     <h2>Taşıma / Nakliyat Talebi Ekleme</h2>
 
     <% using (Html.BeginForm()) {%>
@@ -74,7 +82,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.ApplicationMo
                 </div>
                 <div class="editor-field">
                     <%: Html.DropDownList("DepartureCities", ViewData["CityList"] as List<SelectListItem>, 
-                        new { style = "width:220px;" }) %>
+                        new { style = "width:206px;" }) %>
                     <%: Html.ValidationMessageFor(model => model.Departure.City.Name)%>
                 </div>
             
@@ -135,7 +143,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.ApplicationMo
                 </div>
                 <div class="editor-field">
                     <%: Html.DropDownList("DestinationCities", ViewData["CityList"] as List<SelectListItem>, 
-                        new { style = "width:220px;" }) %>
+                        new { style = "width:206px;" }) %>
                     <%: Html.ValidationMessageFor(model => model.Destination.City.Name)%>
                 </div>
             
@@ -187,7 +195,7 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.ApplicationMo
                     <%: Html.ValidationMessageFor(model => model.Destination.InnerDoorNo)%>
                 </div>
             </fieldset>
-            
+            <br />
             <p>
                 <input type="submit" value="TAŞIMA TALEBİ KAYDET" />
             </p>
