@@ -87,8 +87,8 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.CompanyModel>
                     <%: Html.LabelFor(model => model.Address.City.Name) %>
                 </div>
                 <div class="editor-field">
-                    <%: Html.DropDownList("Cities", ViewData["CityList"] as List<SelectListItem>, 
-                        new { style = "width:220px;" }) %>
+                    <%: Html.DropDownList("Cities", ViewData["CityList"] as List<SelectListItem>,
+                            new { style = "width:206px;" })%>
                     <%: Html.ValidationMessageFor(model => model.Address.City.Name)%>
                 </div>
             
@@ -148,9 +148,9 @@ Inherits="System.Web.Mvc.ViewPage<TransportationMvc2Project.Models.CompanyModel>
                 <%: Html.TextBoxFor(model => model.EstablishmentDate) %>
                 <%: Html.ValidationMessageFor(model => model.EstablishmentDate) %>
             </div>
-            
+            <br />
             <p>
-                <input type="submit" value="KAYDET" />
+                <input type="submit" value="ŞİRKET KAYDET" />
             </p>
         </fieldset>
 
