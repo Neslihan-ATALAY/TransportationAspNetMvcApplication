@@ -33,6 +33,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("TransportationDatabaseModel", "FK_VEHICLE_VEHICLETYPE", "VEHICLETYPE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TransportationMvc2Project.Models.VEHICLETYPE), "VEHICLE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportationMvc2Project.Models.VEHICLE), true)]
 [assembly: EdmRelationshipAttribute("TransportationDatabaseModel", "FK_VEHICLE_TRANSPORTTYPE", "TRANSPORTTYPE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TransportationMvc2Project.Models.TRANSPORTTYPE), "VEHICLE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportationMvc2Project.Models.VEHICLE), true)]
 [assembly: EdmRelationshipAttribute("TransportationDatabaseModel", "FK_EMPLOYEE_EMPLOYEETYPE", "EMPLOYEETYPE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TransportationMvc2Project.Models.EMPLOYEETYPE), "EMPLOYEE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportationMvc2Project.Models.EMPLOYEE), true)]
+[assembly: EdmRelationshipAttribute("TransportationDatabaseModel", "FK_COMPANY_ROLE", "ROLE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TransportationMvc2Project.Models.ROLE), "COMPANY", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportationMvc2Project.Models.COMPANY), true)]
+[assembly: EdmRelationshipAttribute("TransportationDatabaseModel", "FK_USER_ROLE", "ROLE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TransportationMvc2Project.Models.ROLE), "USER", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportationMvc2Project.Models.USER), true)]
 
 #endregion
 
@@ -307,6 +309,22 @@ namespace TransportationMvc2Project.Models
             }
         }
         private ObjectSet<EMPLOYEETYPE> _EMPLOYEETYPEs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ROLE> ROLEs
+        {
+            get
+            {
+                if ((_ROLEs == null))
+                {
+                    _ROLEs = base.CreateObjectSet<ROLE>("ROLEs");
+                }
+                return _ROLEs;
+            }
+        }
+        private ObjectSet<ROLE> _ROLEs;
 
         #endregion
 
@@ -422,6 +440,14 @@ namespace TransportationMvc2Project.Models
         public void AddToEMPLOYEETYPEs(EMPLOYEETYPE eMPLOYEETYPE)
         {
             base.AddObject("EMPLOYEETYPEs", eMPLOYEETYPE);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ROLEs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToROLEs(ROLE rOLE)
+        {
+            base.AddObject("ROLEs", rOLE);
         }
 
         #endregion
@@ -1840,6 +1866,78 @@ namespace TransportationMvc2Project.Models
         private Nullable<global::System.DateTime> _ESTABLISHMENTDATE;
         partial void OnESTABLISHMENTDATEChanging(Nullable<global::System.DateTime> value);
         partial void OnESTABLISHMENTDATEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String COMPANYUSERNAME
+        {
+            get
+            {
+                return _COMPANYUSERNAME;
+            }
+            set
+            {
+                OnCOMPANYUSERNAMEChanging(value);
+                ReportPropertyChanging("COMPANYUSERNAME");
+                _COMPANYUSERNAME = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("COMPANYUSERNAME");
+                OnCOMPANYUSERNAMEChanged();
+            }
+        }
+        private global::System.String _COMPANYUSERNAME;
+        partial void OnCOMPANYUSERNAMEChanging(global::System.String value);
+        partial void OnCOMPANYUSERNAMEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String COMPANYPASSWORD
+        {
+            get
+            {
+                return _COMPANYPASSWORD;
+            }
+            set
+            {
+                OnCOMPANYPASSWORDChanging(value);
+                ReportPropertyChanging("COMPANYPASSWORD");
+                _COMPANYPASSWORD = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("COMPANYPASSWORD");
+                OnCOMPANYPASSWORDChanged();
+            }
+        }
+        private global::System.String _COMPANYPASSWORD;
+        partial void OnCOMPANYPASSWORDChanging(global::System.String value);
+        partial void OnCOMPANYPASSWORDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ROLEID
+        {
+            get
+            {
+                return _ROLEID;
+            }
+            set
+            {
+                OnROLEIDChanging(value);
+                ReportPropertyChanging("ROLEID");
+                _ROLEID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ROLEID");
+                OnROLEIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ROLEID;
+        partial void OnROLEIDChanging(Nullable<global::System.Int32> value);
+        partial void OnROLEIDChanged();
 
         #endregion
 
@@ -1886,6 +1984,44 @@ namespace TransportationMvc2Project.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VEHICLE>("TransportationDatabaseModel.FK_VEHICLE_COMPANY", "VEHICLE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TransportationDatabaseModel", "FK_COMPANY_ROLE", "ROLE")]
+        public ROLE ROLE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ROLE>("TransportationDatabaseModel.FK_COMPANY_ROLE", "ROLE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ROLE>("TransportationDatabaseModel.FK_COMPANY_ROLE", "ROLE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ROLE> ROLEReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ROLE>("TransportationDatabaseModel.FK_COMPANY_ROLE", "ROLE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ROLE>("TransportationDatabaseModel.FK_COMPANY_ROLE", "ROLE", value);
                 }
             }
         }
@@ -2582,6 +2718,135 @@ namespace TransportationMvc2Project.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="TransportationDatabaseModel", Name="ROLE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ROLE : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ROLE object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static ROLE CreateROLE(global::System.Int32 id)
+        {
+            ROLE rOLE = new ROLE();
+            rOLE.ID = id;
+            return rOLE;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ROLENAME
+        {
+            get
+            {
+                return _ROLENAME;
+            }
+            set
+            {
+                OnROLENAMEChanging(value);
+                ReportPropertyChanging("ROLENAME");
+                _ROLENAME = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ROLENAME");
+                OnROLENAMEChanged();
+            }
+        }
+        private global::System.String _ROLENAME;
+        partial void OnROLENAMEChanging(global::System.String value);
+        partial void OnROLENAMEChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TransportationDatabaseModel", "FK_COMPANY_ROLE", "COMPANY")]
+        public EntityCollection<COMPANY> COMPANies
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<COMPANY>("TransportationDatabaseModel.FK_COMPANY_ROLE", "COMPANY");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<COMPANY>("TransportationDatabaseModel.FK_COMPANY_ROLE", "COMPANY", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TransportationDatabaseModel", "FK_USER_ROLE", "USER")]
+        public EntityCollection<USER> USERs
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<USER>("TransportationDatabaseModel.FK_USER_ROLE", "USER");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<USER>("TransportationDatabaseModel.FK_USER_ROLE", "USER", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="TransportationDatabaseModel", Name="TRANSPORTTYPE")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2999,6 +3264,30 @@ namespace TransportationMvc2Project.Models
         private global::System.String _PASSWORD;
         partial void OnPASSWORDChanging(global::System.String value);
         partial void OnPASSWORDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ROLEID
+        {
+            get
+            {
+                return _ROLEID;
+            }
+            set
+            {
+                OnROLEIDChanging(value);
+                ReportPropertyChanging("ROLEID");
+                _ROLEID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ROLEID");
+                OnROLEIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ROLEID;
+        partial void OnROLEIDChanging(Nullable<global::System.Int32> value);
+        partial void OnROLEIDChanged();
 
         #endregion
 
@@ -3023,6 +3312,44 @@ namespace TransportationMvc2Project.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<APPLICATION>("TransportationDatabaseModel.FK_APPLICATION_USER", "APPLICATION", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TransportationDatabaseModel", "FK_USER_ROLE", "ROLE")]
+        public ROLE ROLE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ROLE>("TransportationDatabaseModel.FK_USER_ROLE", "ROLE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ROLE>("TransportationDatabaseModel.FK_USER_ROLE", "ROLE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ROLE> ROLEReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ROLE>("TransportationDatabaseModel.FK_USER_ROLE", "ROLE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ROLE>("TransportationDatabaseModel.FK_USER_ROLE", "ROLE", value);
                 }
             }
         }
