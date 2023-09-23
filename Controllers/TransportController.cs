@@ -51,8 +51,9 @@ namespace TransportationMvc2Project.Controllers
         }
 
         //
-        // GET: /Transport/Create
+        // GET: /Transport/CreateTransport
 
+        [Authorize(Roles = "KULLANICI")]
         public ActionResult CreateTransport()
         {
             ApplicationModel transportModel = new ApplicationModel();
@@ -66,9 +67,10 @@ namespace TransportationMvc2Project.Controllers
         }
 
         //
-        // POST: /Transport/Create
+        // POST: /Transport/CreateTransport
 
         [HttpPost]
+        [Authorize(Roles = "KULLANICI")]
         public ActionResult CreateTransport(FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -146,8 +148,9 @@ namespace TransportationMvc2Project.Controllers
             return View();
         }
 
+        
         //
-        // GET: /Transport/Create
+        // GET: /Transport/CreateAddress
 
         public ActionResult CreateAddress()
         {
@@ -156,7 +159,7 @@ namespace TransportationMvc2Project.Controllers
         }
 
         //
-        // POST: /Transport/Create
+        // POST: /Transport/CreateAddress
 
         [HttpPost]
         public ActionResult CreateAddress(FormCollection collection)
